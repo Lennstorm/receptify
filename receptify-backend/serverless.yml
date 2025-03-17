@@ -1,0 +1,59 @@
+org: lennstorm
+app: receptify
+service: receptify-backend
+
+custom:
+  localConfig: ${file(./local.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  stage: dev  
+  iam:
+    role: ${self:custom.localConfig.iamRole}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          method: GET
+          path: /hello
+
+resources:
+  Resources:
+    receptifyUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: receptify-UserPool
+        Schema:
+          - Name: email
+            Required: true
+            Mutable: false
+            AttributeDataType: String
+        AutoVerifiedAttributes:
+          - email
+        AccountRecoverySetting:
+          RecoveryMechanisms:
+            - Name: verified_email
+              Priority: 1
+
+    receptifyUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        UserPoolId: !Ref receptifyUserPool
+        ClientName: receptify-userpool-client
+        GenerateSecret: false
+        ExplicitAuthFlows:
+          - ALLOW_USER_SRP_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+        SupportedIdentityProviders:
+          - COGNITO
+
+
+    receptifyUserPoolDomain:
+      Type: AWS::Cognito::UserPoolDomain
+      Properties:
+        Domain: receptify-domain-${self:provider.stage}
+        UserPoolId: !Ref receptifyUserPool

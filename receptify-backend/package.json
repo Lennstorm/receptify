@@ -1,0 +1,24 @@
+{
+  "name": "receptify-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AWS Simple HTTP Endpoint example in NodeJS",
+  "main": "handler.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "serverless deploy",
+    "offline": "serverless offline"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "serverless-offline": "^14.4.0",
+    "@middy/core": "^5.0.0",
+    "@middy/http-json-body-parser": "^5.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}

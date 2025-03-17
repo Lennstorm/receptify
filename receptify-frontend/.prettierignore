@@ -1,0 +1,33 @@
+# Ignorera konfigurations- och metadatafiler
+.gitignore
+.prettierrc
+.prettierignore
+package.json
+package-lock.json
+tsconfig.json
+next.config.js
+next.config.ts
+components.json
+
+# Ignorera byggfiler och cachemappar
+node_modules
+.next
+dist
+out
+
+# Ignorera bilder, ikoner och andra binära filer
+public/*.svg
+public/*.png
+public/*.jpg
+public/*.ico
+
+# Binära filer och media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+
+# Ignorera Markdown och dokumentation
+README.md

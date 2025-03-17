@@ -1,0 +1,7 @@
+node_modules
+.serverless/
+.aws/
+logs/
+*.log
+.env
+local.yml
