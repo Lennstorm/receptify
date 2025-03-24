@@ -13,12 +13,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1692.0",
-    "serverless-offline": "^14.4.0",
     "@middy/core": "^5.0.0",
-    "@middy/http-json-body-parser": "^5.0.0"
+    "@middy/http-json-body-parser": "^5.0.0",
+    "aws-sdk": "^2.1692.0",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "prettier": "^3.5.3"
+    "@types/bcryptjs": "^2.4.6",
+    "prettier": "^3.5.3",
+    "serverless-dynamodb-local": "^0.2.40"
   }
 }

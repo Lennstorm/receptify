@@ -1,3 +1,5 @@
+# serverless.yml
+
 org: lennstorm
 app: receptify
 service: receptify-backend
@@ -9,11 +11,30 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: eu-north-1
-  stage: dev  
+  stage: dev
+  httpApi:
+    cors: true
   iam:
-    role: ${self:custom.localConfig.iamRole}
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Query
+          Resource:
+            - !GetAtt ReceptifyUsersTable.Arn
+            - !GetAtt ReceptifyRecipesTable.Arn
+            - !Sub "arn:aws:dynamodb:${self:provider.region}:${AWS::AccountId}:table/receptify-users/index/email-index"
+  environment:
+    USERS_TABLE: receptify-users
+    RECIPES_TABLE: receptify-recipes
+    JWT_SECRET: ${self:custom.localConfig.jwtSecret}
 
 functions:
+  # Testfunktion
   hello:
     handler: handler.hello
     events:
@@ -21,8 +42,81 @@ functions:
           method: GET
           path: /hello
 
+  # Skapa användare
+  createUser:
+    handler: src/routes/users/createUser.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /register
+
+  # Logga in användare
+  loginUser:
+    handler: src/routes/users/loginUser.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /login
+
+  # Hämta användare (från JWT)
+  getUser:
+    handler: src/routes/users/getUser.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /user
+
+  # Uppdatera användare
+  updateUser:
+    handler: src/routes/users/updateUser.handler
+    events:
+      - httpApi:
+          method: PUT
+          path: /user
+
+  # Ta bort användare
+  deleteUser:
+    handler: src/routes/users/deleteUser.handler
+    events:
+      - httpApi:
+          method: DELETE
+          path: /user
+
+  # Skapa recept
+  createRecipe:
+    handler: src/routes/recipes/createRecipe.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /recipe
+
+  # Hämta recept
+  getRecipe:
+    handler: src/routes/recipes/getRecipe.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /recipe/{recipeId}
+
+  # Uppdatera recept
+  updateRecipe:
+    handler: src/routes/recipes/updateRecipe.handler
+    events:
+      - httpApi:
+          method: PUT
+          path: /recipe/{recipeId}
+
+  # Ta bort recept
+  deleteRecipe:
+    handler: src/routes/recipes/deleteRecipe.handler
+    events:
+      - httpApi:
+          method: DELETE
+          path: /recipe/{recipeId}
+
 resources:
   Resources:
+    # Cognito User Pool (om du vill behålla, men du använder nu mest JWT_SECRET i stället)
     receptifyUserPool:
       Type: AWS::Cognito::UserPool
       Properties:
@@ -51,9 +145,56 @@ resources:
         SupportedIdentityProviders:
           - COGNITO
 
-
     receptifyUserPoolDomain:
       Type: AWS::Cognito::UserPoolDomain
       Properties:
         Domain: receptify-domain-${self:provider.stage}
         UserPoolId: !Ref receptifyUserPool
+
+    # DynamoDB Users Table
+    ReceptifyUsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: receptify-users
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: email-index
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+
+    # DynamoDB Recipes Table
+    ReceptifyRecipesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: receptify-recipes
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: recipeId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: category
+            AttributeType: S
+        KeySchema:
+          - AttributeName: recipeId
+            KeyType: HASH
+          - AttributeName: userId
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: category-index
+            KeySchema:
+              - AttributeName: category
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
