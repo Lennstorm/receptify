@@ -11,6 +11,7 @@ Det här projektet är en receptsamling med frontend byggd i **Next.js (App Rout
 
 1. **Klona repot**
 2. **Installera beroenden: npm install**
+3. **Stå i receptify-frontend och kör npm run dev**
 
    _Det finns en backend._  
    _Den fungerar inte._  
