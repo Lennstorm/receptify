@@ -1,0 +1,50 @@
+/* styles/globals.css */ 
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+  
+
+  /*  Mörkt läge */
+/*   @layer base {
+    * {
+      @apply border-border outline-ring/50;
+    }
+    body {
+      @apply bg-background text-foreground;
+    }
+  }
+ 
+  /* Grundläggande färger och styling */
+
+/*   :root {
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+
+    --primary: oklch(0.2 0.1 120);
+    --secondary: oklch(0.7 0.1 60);
+  }
+ */
+
+  /* Mörkt läge */
+/*   .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+  }
+ */

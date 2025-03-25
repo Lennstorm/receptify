@@ -1,25 +1,31 @@
-import { cn } from "@/lib/utils";
+// app/page.tsx
+import Link from "next/link";
 
-export default function Home() {
+export default function LandingPage() {
   return (
     <main
-      className={cn(
-        "flex min-h-screen flex-col items-center justify-center gap-6 p-6"
-      )}
+      className="relative min-h-screen bg-no-repeat bg-cover bg-right sm:bg-center text-white
+                 bg-[url('/receptifyBgImgMob.png')] sm:bg-[url('/receptifyBgImg.jpg')]"
     >
-      <h1 className="text-4xl font-bold tracking-tight">
-        Välkommen till Receptify!
-      </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300">
-        Samla, organisera och dela dina favoritrecept på ett smidigt sätt.
-      </p>
-      <button
-        className={cn(
-          "px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary/90"
-        )}
-      >
-        Utforska recept
-      </button>
+      <div className="absolute top-[68%] left-[70%] sm:top-[70%] sm:left-[56%] -translate-x-1/2 -translate-y-1/2 text-center">
+        <h1 className="font-josefin font-bold mb-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-lg">
+          Receptifiera
+        </h1>
+        <div className="space-y-4 text-lg sm:text-xl md:text-2xl lg:text-3xl drop-shadow">
+          <Link
+            href="/login"
+            className="block hover:pointer hover:text-secondary"
+          >
+            Logga in
+          </Link>
+          <Link
+            href="/register"
+            className="block hover:pointer hover:text-secondary"
+          >
+            Registrera
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }
