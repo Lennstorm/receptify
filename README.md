@@ -77,10 +77,10 @@ Projektet använder `localStorage` för att spara:
 
 ## Funktioner
 
-- Dynamisk anpassning av ingrediensmängder baserat på portioner
-- Textinstruktioner med ingrediens-placeholders (t.ex. `{{0}}`)
-- Användaren kan klicka i vilka steg som är färdiglagade
-- Responsivt gränssnitt som fungerar på både mobil och desktop
+- Dynamisk anpassning av ingrediensmängder baserat på portioner.
+- Textinstruktioner med ingrediens-placeholders (t.ex. `{{0}}`).
+- Användaren kan klicka i vilka steg som är färdiglagade.
+- Responsivt gränssnitt som fungerar på både mobil och desktop.
 
 # BACKEND (ej fungerande)
 
