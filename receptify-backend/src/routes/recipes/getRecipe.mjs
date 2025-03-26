@@ -35,8 +35,8 @@ const getRecipe = async (event) => {
       };
     }
 
-    // Exempel för att "bygga" steps – men du har redan en ganska avancerad logik.
-    // Nedan är ett enkel-exempel. Gör som du vill.
+    // Exempel för att "bygga" steps
+
     const recipe = {
       recipeId: Item.recipeId.S,
       userId: Item.userId.S,
