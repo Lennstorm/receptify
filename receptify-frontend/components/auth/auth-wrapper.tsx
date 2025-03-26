@@ -1,12 +1,14 @@
+// components/auth/auth-wrapper.tsx  -- tänkt att användas för att växla mellan login och registerfunktion. Används ej i nuläget
+
 "use client";
 
 import { useState } from "react";
-import { LoginForm } from "./login-form";
-import { RegisterForm } from "./register-form";
+import LoginForm from "./login-form";
+import RegisterForm from "./register-form";
 import { Button } from "@/components/ui/button";
 
 export function AuthWrapper() {
-  const [mode, setMode] = (useState < "login") | ("register" > "login");
+  const [mode, setMode] = useState<"login" | "register">("login");
 
   return (
     <div className="w-full max-w-md mx-auto space-y-6">
