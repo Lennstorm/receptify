@@ -1,4 +1,6 @@
-# Receptify – examensprojekt
+# Receptify – examensprojekt. Version 1.0
+
+Inlämnad för examination.
 
 Det här projektet är en receptsamling med frontend byggd i **Next.js (App Router)** med **TypeScript** och där användaren kan:
 
