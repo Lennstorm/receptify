@@ -28,7 +28,7 @@ export const FormField = ({
         id={name}
         type={type}
         placeholder={placeholder}
-        {...register(name)}
+        {...register}
       />
       <InputError message={error} />
     </div>

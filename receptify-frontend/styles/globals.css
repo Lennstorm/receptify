@@ -12,7 +12,11 @@ body {
   margin: 0;
   padding: 0;
 }
-  
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: #1f2937; /* text-gray-800 */
+  transition: background-color 9999s ease-in-out 0s;
+}
 
   /*  Mörkt läge */
 /*   @layer base {

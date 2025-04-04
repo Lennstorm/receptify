@@ -7,28 +7,37 @@ import LoginForm from "./login-form";
 import RegisterForm from "./register-form";
 import { Button } from "@/components/ui/button";
 
-export function AuthWrapper() {
-  const [mode, setMode] = useState<"login" | "register">("login");
+interface AuthWrapperProps {
+  initialMode?: "login" | "register";
+  onSuccess?: () => void;
+}
+
+export default function AuthWrapper({ initialMode = "login", onSuccess }: AuthWrapperProps) {
+  const [mode, setMode] = useState<"login" | "register">(initialMode);
 
   return (
     <div className="w-full max-w-md mx-auto space-y-6">
-      {mode === "login" ? <LoginForm /> : <RegisterForm />}
+      {mode === "login" 
+        ? <LoginForm onSuccess={onSuccess} /> 
+        : <RegisterForm onSuccess={onSuccess} />
+        }
 
+        {/* Växla mellan formulär */}
       <div className="text-center">
         {mode === "login" ? (
           <>
-            <p className="text-sm text-muted-foreground">Har du inget konto?</p>
+            <p className="text-sm text-gray-700">Har du inget konto?</p>
             <Button
               variant="link"
               onClick={() => setMode("register")}
               className="text-sm"
             >
-              Skapa konto
+              Gå till registrering
             </Button>
           </>
         ) : (
           <>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-gray-700">
               Har du redan ett konto?
             </p>
             <Button
@@ -36,7 +45,7 @@ export function AuthWrapper() {
               onClick={() => setMode("login")}
               className="text-sm"
             >
-              Logga in
+              Gå till inloggning
             </Button>
           </>
         )}

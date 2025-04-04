@@ -1,7 +1,23 @@
 // app/page.tsx
+
+"use client"
+
 import Link from "next/link";
+import { useState } from "react";
+import AuthModal from "@/auth/auth-modal";
+import AuthWrapper from "@/auth/auth-wrapper";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
+  const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "register">("login");
+
+  const openModal = (mode: "login" | "register") => {
+    setAuthMode(mode);
+    setShowModal(true);
+  };
+
   return (
     <main
       className="relative min-h-screen bg-no-repeat bg-cover bg-right sm:bg-center text-white
@@ -12,20 +28,33 @@ export default function LandingPage() {
           Receptifiera
         </h1>
         <div className="space-y-4 text-lg sm:text-xl md:text-2xl lg:text-3xl drop-shadow">
-          <Link
-            href="/login"
-            className="block hover:pointer hover:text-secondary"
+        <button
+            onClick={() => openModal("login")}
+            className="block w-full text-center bg-transparent border-none hover:text-secondary transition-colors"
+
           >
             Logga in
-          </Link>
-          <Link
-            href="/register"
-            className="block hover:pointer hover:text-secondary"
+          </button>
+          <button
+            onClick={() => openModal("register")}
+            className="block w-full text-center bg-transparent border-none hover:text-secondary transition-colors"
+
           >
             Registrera
-          </Link>
+          </button>
+
         </div>
       </div>
+      {showModal && (
+        <AuthModal onClose={() => setShowModal(false)}>
+          <AuthWrapper 
+            initialMode={authMode} 
+            onSuccess={() => {
+              setShowModal(false)
+              router.push("/user")
+          }} />
+        </AuthModal>
+      )}
     </main>
   );
 }

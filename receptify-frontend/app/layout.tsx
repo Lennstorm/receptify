@@ -7,6 +7,9 @@ import "../styles/globals.css";
 export const metadata: Metadata = {
   title: "Receptify - Din digitala receptsamling",
   description: "Samla, organisera och dela recept enkelt och smidigt.",
+  icons: {
+    icon: "/favicon.svg"
+  },
 };
 
 export default function RootLayout({
@@ -18,7 +21,7 @@ export default function RootLayout({
     <html lang="sv" className="min-h-screen overflow-x-hidden bg-thistle">
       <body className={cn("min-h-screen antialiased bg-thistle text-gray-900 dark:bg-gray-900 dark:text-white")}>
         {children}
-        <Toaster richColors /> 
+        <Toaster position="top-center" duration={2000} richColors /> 
       </body>
     </html>
   );
