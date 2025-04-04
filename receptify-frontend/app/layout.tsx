@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Receptify - Din digitala receptsamling",
+  title: "Receptify - Laga med kärlek!",
   description: "Samla, organisera och dela recept enkelt och smidigt.",
   icons: {
     icon: "/favicon.svg"
